@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1",
+        "name": "Солнце",
+        "constellation": "Солнечная система",
+        "is_visible": "да",
+        "radius": "1.0"
+    },
+    {
+        "id": "2",
+        "name": "Проксима Центавра",
+        "constellation": "Центавр",
+        "is_visible": "нет",
+        "radius": "0.1542"
+    },
+    {
+        "id": "3",
+        "name": "Альтаир",
+        "constellation": "Орел",
+        "is_visible": true,
+        "radius": 1.7
+    },
+    {
+        "id": "4",
+        "name": "Капелла",
+        "constellation": "Возничий",
+        "is_visible": true,
+        "radius": 10.0
+    },
+    {
+        "id": "5",
+        "name": "Вега",
+        "constellation": "Лира",
+        "is_visible": true,
+        "radius": 3.0
+    }
+]
