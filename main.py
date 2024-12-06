@@ -15,7 +15,7 @@ while True:
     5 - Выйти из программы
     """)
 
-    n = input("Введите номер пункта: ")
+    n = int(input("Введите номер пункта: "))
 
     if n == 1:  # Вывести все записи
         for star in data:
@@ -47,7 +47,7 @@ while True:
         count += 1
 
     elif n == 3:  # Добавить запись
-        new_id = input("Введите id: ")
+        new_id = int(input("Введите id: "))
         for star in data:
             if star['id'] == new_id:
                 print("Звезда уже добавлена")
@@ -74,7 +74,7 @@ while True:
         count += 1
 
     elif n == 4:  # Удалить запись по полю
-        del_id = input("Введите id для удаления: ")
+        del_id = int(input("Введите id для удаления: "))
         for star in data:
             if star['id'] == del_id:
                 data.remove(star)
