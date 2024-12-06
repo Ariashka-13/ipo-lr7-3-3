@@ -15,7 +15,7 @@ while True:
     5 - Выйти из программы
     """)
 
-    n = int(input("Введите номер пункта: "))
+    n = input("Введите номер пункта: ")
 
     if n == 1:  # Вывести все записи
         for star in data:
@@ -47,14 +47,14 @@ while True:
         count += 1
 
     elif n == 3:  # Добавить запись
-        new_id = int(input("Введите id: "))
+        new_id = input("Введите id: ")
         for star in data:
             if star['id'] == new_id:
                 print("Звезда уже добавлена")
                 break
         else:
-            new_name = str(input("Название звезды: "))
-            new_constellation = str(input("Название созвездия: "))
+            new_name = input("Название звезды: ")
+            new_constellation = input("Название созвездия: ")
             new_is_visible = bool(input("Можно ли увидеть звезду без телескопа: "))
             new_radius = float(input("Солнечный радиус звезды: "))
 
@@ -74,7 +74,7 @@ while True:
         count += 1
 
     elif n == 4:  # Удалить запись по полю
-        del_id = int(input("Введите id для удаления: "))
+        del_id = input("Введите id для удаления: ")
         for star in data:
             if star['id'] == del_id:
                 data.remove(star)
