@@ -25,7 +25,7 @@ def main():
             Можно ли увидеть звезду без телескопа: {star['is_visible']},
             Солнечный радиус звезды: {star['radius']},
             """)
-        return count +1
+        return count + 1
 
     def search_stars(count):
         search = input("Введите id: ")
@@ -70,7 +70,7 @@ def main():
                   json.dump(data, new_file, ensure_ascii = False, indent=4)
                 print("Запись добавлена")
                 break
-        return count +1
+        return count + 1
     
     def delete_stars(count):
         del_id = int(input("Введите id для удаления: "))
