@@ -4,9 +4,7 @@ def main():
     with open("stars.json", "r", encoding="UTF-8") as file:
         data = json.load(file)
 
-    global count
     count = 0
-    open_programme = True
 
     def menu():
         print("""
@@ -18,8 +16,7 @@ def main():
         5 - Выйти из программы
         """)
 
-    def all_stars():
-        global count
+    def all_stars(count):
         for star in data:
             print(f"""
             Номер записи: {star['id']},
@@ -28,10 +25,9 @@ def main():
             Можно ли увидеть звезду без телескопа: {star['is_visible']},
             Солнечный радиус звезды: {star['radius']},
             """)
-        count += 1
+        return count +1
 
-    def search_stars():
-        global count
+    def search_stars(count):
         search = input("Введите id: ")
 
         for i, star in enumerate(data):
@@ -47,10 +43,9 @@ def main():
                 break
             else:
                 print("Не найдено")
-        count += 1
+        return count + 1
 
-    def add_stars():
-        global count
+    def add_stars(count):
         new_id = input("Введите id: ")
         for star in data:
             if star['id'] == new_id:
@@ -75,10 +70,9 @@ def main():
                   json.dump(data, new_file, ensure_ascii = False, indent=4)
                 print("Запись добавлена")
                 break
-        count += 1
+        return count +1
     
-    def delete_stars():
-        global count
+    def delete_stars(count):
         del_id = int(input("Введите id для удаления: "))
         for star in data:
             if star['id'] == del_id:
@@ -90,29 +84,29 @@ def main():
             else:
                 print("Запись не найдена")
                 break
-        count += 1
+        return count + 1
 
-    def end():
+    def end(count):
         print("Выход из программы")
         print("Количество выполненных операций с записями: ", count)
-        open_programme = False
+        return False, count
 
-    while open_programme:
+    while True:
         menu()
 
         n = input("Введите номер пункта: ")
         if n.isdigit():
             n = int(n)
             if n == 1:
-                all_stars()
+                count = all_stars(count)
             elif n == 2:
-                search_stars()
+                count = search_stars(count)
             elif n == 3:
-                add_stars()
+                count = add_stars(count)
             elif n == 4:
-                delete_stars()
+                count = delete_stars(count)
             elif n == 5:
-                end()
+                count = end(count)
             else:
                 print("Ошибка")
         else:
