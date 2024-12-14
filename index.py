@@ -16,101 +16,124 @@ def main():
         5 - Выйти из программы
         """)
 
+    def info_star(star):
+        return f"""
+        Номер записи: {star['id']}, 
+        Общее название звезды: {star['name']}, 
+        Название созвездия: {star['constellation']}, 
+        Можно ли увидеть звезду без телескопа: {star['is_visible']}, 
+        Солнечный радиус звезды: {star['radius']},
+        """
+
+    def open_data_file():
+        with open("stars.json", "w",encoding="UTF-8") as new_file:
+            json.dump(data, new_file, ensure_ascii = False, indent=4)
+
     def all_stars(count):
         for star in data:
-            print(f"""
-            Номер записи: {star['id']},
-            Общее название звезды: {star['name']},
-            Название созвездия: {star['constellation']},
-            Можно ли увидеть звезду без телескопа: {star['is_visible']},
-            Солнечный радиус звезды: {star['radius']},
-            """)
+            print(info_star(star))
         return count + 1
 
     def search_stars(count):
-        search = input("Введите id: ")
-
-        for i, star in enumerate(data):
-            if star['id'] == search:
-                print(f"""
-            Номер записи: {star['id']},
-            Общее название звезды: {star['name']},
-            Название созвездия: {star['constellation']},
-            Можно ли увидеть звезду без телескопа: {star['is_visible']},
-            Солнечный радиус звезды: {star['radius']},
-            """)
-                print(f"Позиция в словаре: {i}")
+        while True:
+            search = input("Введите id: ")
+            if search.isdigit():
                 break
             else:
-                print("Не найдено")
+                print("Некорректный ввод")
+
+        found = False
+        for star in data:
+            if star['id'] == search:
+                print(info_star(star))
+                found = True
+                break
+        if not found:
+            print("Не найдено")
         return count + 1
 
     def add_stars(count):
-        new_id = input("Введите id: ")
-        for star in data:
-            if star['id'] == new_id:
-                print("Звезда уже добавлена")
+        while True:
+            new_id = input("Введите id: ")
+            if new_id.isdigit():
                 break
             else:
-                new_name = input("Название звезды: ")
-                new_constellation = input("Название созвездия: ")
-                new_is_visible = bool(input("Можно ли увидеть звезду без телескопа: "))
-                new_radius = float(input("Солнечный радиус звезды: "))
+                print("Некорректный ввод")
 
-                new_star = {
+        if [star for star in data if star['id'] == new_id]:
+            print("Звезда уже добавлена")
+        else:
+            new_name = input("Название звезды: ")
+            new_constellation = input("Название созвездия: ")
+
+            while True:
+                new_is_visible = input("Можно ли увидеть звезду без телескопа(True/False): ").lower()
+                if new_is_visible in ['true', 'false']:
+                    new_is_visible = new_is_visible == 'true'
+                    break
+                else:
+                    print("Некорректный ввод")
+
+            while True:
+                new_radius = input("Солнечный радиус звезды: ")
+                if new_radius.isdigit():
+                    new_radius = float(new_radius)
+                    break
+                else:
+                    print("Некорректный ввод")
+
+            new_star = {
                 "id": new_id,
                 "name": new_name,
                 "constellation": new_constellation,
                 "is_visible": new_is_visible,
                 "radius": new_radius
-                }
+            }
 
-                data.append(new_star)
-                with open("stars.json", "w",encoding="UTF-8") as new_file:
-                  json.dump(data, new_file, ensure_ascii = False, indent=4)
-                print("Запись добавлена")
-                break
+            data.append(new_star)
+            open_data_file()
+            print("Запись добавлена")
         return count + 1
-    
+
     def delete_stars(count):
-        del_id = int(input("Введите id для удаления: "))
-        for star in data:
-            if star['id'] == del_id:
-                data.remove(star)
-                with open("stars.json", "w",encoding="UTF-8") as new_file:
-                    json.dump(data, new_file, ensure_ascii = False, indent=4)
-                print("Запись удалена")
+        while True:
+            del_id = input("Введите id для удаления: ")
+            if del_id.isdigit():
                 break
             else:
-                print("Запись не найдена")
-                break
+                print("Некорректный ввод")
+
+        star_list = [star for star in data if star['id'] == del_id]
+        if star_list:
+            data.remove(star_list[0])
+            open_data_file()
+            print("Запись удалена")
+        else:
+            print("Запись не найдена")
         return count + 1
 
     def end(count):
         print("Выход из программы")
         print("Количество выполненных операций с записями: ", count)
-        return False, count
+        return False
 
     while True:
         menu()
-
         n = input("Введите номер пункта: ")
         if n.isdigit():
             n = int(n)
-            if n == 1:
-                count = all_stars(count)
-            elif n == 2:
-                count = search_stars(count)
-            elif n == 3:
-                count = add_stars(count)
-            elif n == 4:
-                count = delete_stars(count)
-            elif n == 5:
-                count = end(count)
-            else:
-                print("Ошибка")
-        else:
-            print("Ошибка: введите числовое значение")
+            if n == 1: 
+                count = all_stars(count) 
+            elif n == 2: 
+                count = search_stars(count) 
+            elif n == 3: 
+                count = add_stars(count) 
+            elif n == 4: 
+                count = delete_stars(count) 
+            elif n == 5: 
+                count = end(count) 
+            else: print("Ошибка: введите число из пункта") 
+        else: print("Ошибка: введите числовое значение")
 
 if __name__ == "__main__":
     main()
