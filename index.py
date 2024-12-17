@@ -68,8 +68,11 @@ def main():
 
             while True:
                 new_is_visible = input("Можно ли увидеть звезду без телескопа(True/False): ").lower()
-                if new_is_visible in ['true', 'false']:
-                    new_is_visible = new_is_visible == 'true'
+                if new_is_visible.lower() == "true" or new_is_visible.lower() == "да":
+                    new_is_visible = 'True'
+                    break
+                elif new_is_visible.lower() == "false" or new_is_visible.lower() == "нет":
+                    new_is_visible = 'False'
                     break
                 else:
                     print("Некорректный ввод")
