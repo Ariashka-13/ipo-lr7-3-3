@@ -118,7 +118,7 @@ def main():
     def end(count):
         print("Выход из программы")
         print("Количество выполненных операций с записями: ", count)
-        return False
+        exit()
 
     while True:
         menu()
